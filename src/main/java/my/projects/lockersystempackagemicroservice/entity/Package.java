@@ -30,6 +30,9 @@ public class Package {
     @Column
     private String description;
 
+    @Column(nullable = false, unique = true, name = "access_code")
+    private String accessCode;
+
     @Column(name = "locker_unit_id")
     private Long lockerUnitId;
 
@@ -45,12 +48,16 @@ public class Package {
     public Package() {
     }
 
-    public Package(String senderEmail, String recipientEmail, PackageSizeEnum packageSize, String location, Long lockerUnitId) {
+    public Package(String senderEmail, String recipientEmail, PackageSizeEnum packageSize, String location, String description, String accessCode, Long lockerUnitId, PackageStatusEnum packageStatus, LocalDateTime createdAt) {
         this.senderEmail = senderEmail;
         this.recipientEmail = recipientEmail;
         this.packageSize = packageSize;
         this.location = location;
+        this.description = description;
+        this.accessCode = accessCode;
         this.lockerUnitId = lockerUnitId;
+        this.packageStatus = packageStatus;
+        this.createdAt = createdAt;
     }
 
     public Long getId() {
@@ -141,5 +148,13 @@ public class Package {
     public Package setDescription(String description) {
         this.description = description;
         return this;
+    }
+
+    public String getAccessCode() {
+        return accessCode;
+    }
+
+    public void setAccessCode(String accessCode) {
+        this.accessCode = accessCode;
     }
 }
