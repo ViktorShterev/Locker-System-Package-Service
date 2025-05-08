@@ -49,6 +49,7 @@ public class PackageServiceImpl implements PackageService {
             event.setLockerLocation(createPackageDTO.getLockerLocation());
             event.setAccessCode(saved.getAccessCode());
             event.setPackageId(saved.getId());
+            event.setRecipientEmail(createPackageDTO.getRecipientEmail());
 
             this.kafkaTemplate.send("package-placed", event);
 
