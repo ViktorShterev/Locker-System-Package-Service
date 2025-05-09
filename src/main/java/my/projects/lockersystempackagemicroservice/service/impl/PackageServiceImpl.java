@@ -1,6 +1,7 @@
 package my.projects.lockersystempackagemicroservice.service.impl;
 
 import my.projects.lockersystempackagemicroservice.dto.CreatePackageDTO;
+import my.projects.lockersystempackagemicroservice.dto.PackageDTO;
 import my.projects.lockersystempackagemicroservice.dto.ReceivePackageDTO;
 import my.projects.lockersystempackagemicroservice.dto.kafka.PackageEventDTO;
 import my.projects.lockersystempackagemicroservice.entity.Package;
@@ -13,6 +14,8 @@ import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -86,5 +89,32 @@ public class PackageServiceImpl implements PackageService {
         }
 
         return false;
+    }
+
+    @Override
+    public List<PackageDTO> getAllPackages(String email) {
+
+        List<Package> allPackages = this.packageRepository.findTop10ByRecipientEmailOrderByCreatedAtDesc(email);
+        List<PackageDTO> packageDTOList = new ArrayList<>();
+
+        for (Package aPackage : allPackages) {
+
+            PackageDTO packageDTO = new PackageDTO(aPackage.getLocation(),
+                    aPackage.getDescription(),
+                    aPackage.getAccessCode(),
+                    aPackage.getLockerUnitId(),
+                    aPackage.getPackageSize().name(),
+                    aPackage.getPackageStatus().name());
+
+            if (aPackage.getPickedUpAt() == null) {
+                packageDTO.setPickedUpAt("-");
+            } else {
+                packageDTO.setPickedUpAt(aPackage.getPickedUpAt().toString());
+            }
+
+            packageDTOList.add(packageDTO);
+        }
+
+        return packageDTOList;
     }
 }
