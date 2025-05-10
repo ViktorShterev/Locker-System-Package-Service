@@ -1,6 +1,6 @@
 # Package Service – SmartLockerHub
 
-The **Package Service** is the central component of the **SmartLockerHub** ecosystem, handling all operations related to package creation, tracking, and delivery workflows. It interacts with both the Locker Service and User Service using Apache Kafka for seamless event-driven communication.
+The **Package Service** is the central component of the **SmartLockerHub** ecosystem, handling all operations related to package creation, tracking, and delivery workflows. It interacts with both the [**Locker-Service**](https://github.com/ViktorShterev/Locker-System-Locker-Service/tree/master) and [**User-Service**](https://github.com/ViktorShterev/Locker-System-Main-Service/tree/master) using Apache Kafka for seamless event-driven communication.
 
 ---
 
